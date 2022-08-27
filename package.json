@@ -1,0 +1,43 @@
+{
+  "name": "knucklebones",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint .",
+    "prepare": "husky install",
+    "preinstall": "npx only-allow pnpm",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@radix-ui/colors": "^0.1.8",
+    "@vanilla-extract/css": "^1.7.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.15",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.35.1",
+    "@typescript-eslint/parser": "^5.35.1",
+    "@vanilla-extract/vite-plugin": "^3.3.1",
+    "@vitejs/plugin-react": "^2.0.1",
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "typescript": "~4.7.4",
+    "vite": "^3.0.7"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": "eslint --fix",
+    "**/*.{json,md}": "prettier --write"
+  }
+}
