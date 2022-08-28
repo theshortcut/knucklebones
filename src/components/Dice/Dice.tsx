@@ -1,7 +1,9 @@
 import { dice, pip } from './Dice.css';
 
+export type DiceValue = 1 | 2 | 3 | 4 | 5 | 6;
+
 type Props = {
-  value: 1 | 2 | 3 | 4 | 5 | 6;
+  value: DiceValue;
 };
 
 export const Dice = ({ value }: Props): JSX.Element => (

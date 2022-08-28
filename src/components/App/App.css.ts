@@ -39,6 +39,8 @@ export const app = style({
 export const main = style({
   display: 'grid',
   gridTemplateRows: 'repeat(3, 1fr)',
+  overflow: 'hidden',
+
   '@media': {
     [mediaQueries.lg]: {
       gridTemplateRows: 'auto',

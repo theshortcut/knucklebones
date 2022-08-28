@@ -11,9 +11,10 @@ export const dice = style({
   aspectRatio: '1',
   backgroundColor: vars.color.bodyText,
   borderRadius: '10%',
-  rowGap: '5%',
-  columnGap: '5%',
-  padding: '10%',
+  rowGap: '2.5%',
+  columnGap: '2.5%',
+  padding: '5%',
+  flex: 1,
 });
 
 export const pip = style({
