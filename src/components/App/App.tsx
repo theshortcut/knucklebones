@@ -12,7 +12,7 @@ export const App = () => {
       <main className={main}>
         <Player />
         <Board />
-        <Player />
+        <Player reverse />
       </main>
     </div>
   );

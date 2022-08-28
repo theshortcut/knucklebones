@@ -1,4 +1,4 @@
-import { dice, pip } from './Dice.css';
+import { dice, emptySlot, pip } from './Dice.css';
 
 export type DiceValue = 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -15,3 +15,5 @@ export const Dice = ({ value }: Props): JSX.Element => (
       ))}
   </div>
 );
+
+export const EmptySlot = () => <div className={emptySlot} />;

@@ -1,4 +1,5 @@
-import { Dice, DiceValue } from '@/components/Dice';
+import { Dice, DiceValue, EmptySlot } from '@/components/Dice';
+import { Text } from '../Text';
 import { board, column, playerArea } from './Board.css';
 
 const PlayerArea = ({
@@ -10,7 +11,7 @@ const PlayerArea = ({
 }): JSX.Element => (
   <div className={playerArea}>
     {data.map((column, columnIdx) => (
-      <Column data={column} reverse={playerIdx === 0} key={columnIdx} />
+      <Column data={column} reverse={playerIdx === 1} key={columnIdx} />
     ))}
   </div>
 );
@@ -24,21 +25,22 @@ const Column = ({
   reverse: boolean;
 }): JSX.Element => (
   <div className={column({ reverse })} {...props}>
+    <Text textAlign="center">0</Text>
     {data.map((dice, diceIdx) =>
-      dice ? <Dice value={dice} key={diceIdx} /> : null
+      dice ? <Dice value={dice} key={diceIdx} /> : <EmptySlot key={diceIdx} />
     )}
   </div>
 );
 
 const gameState = [
   [
-    [1, 2, 3],
-    [1, 2, 3],
+    [1, null, null],
+    [1, 2, null],
     [1, 2, 3],
   ],
   [
-    [4, 5, 6],
-    [4, 5, 6],
+    [4, null, null],
+    [4, 5, null],
     [4, 5, 6],
   ],
 ] as (DiceValue | null)[][][];

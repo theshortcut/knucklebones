@@ -38,7 +38,7 @@ export const app = style({
 
 export const main = style({
   display: 'grid',
-  gridTemplateRows: 'repeat(3, 1fr)',
+  gridTemplateRows: '1fr 5fr 1fr',
   overflow: 'hidden',
 
   '@media': {

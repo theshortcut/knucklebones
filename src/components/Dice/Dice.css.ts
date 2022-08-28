@@ -11,8 +11,7 @@ export const dice = style({
   aspectRatio: '1',
   backgroundColor: vars.color.bodyText,
   borderRadius: '10%',
-  rowGap: '2.5%',
-  columnGap: '2.5%',
+  gridGap: '2.5%',
   padding: '5%',
   flex: 1,
 });
@@ -43,4 +42,12 @@ export const pip = style({
       gridArea: 'g',
     },
   },
+});
+
+export const emptySlot = style({
+  borderRadius: '10%',
+  border: `1px solid ${vars.color.bodyText}`,
+  flex: 1,
+  padding: '5%',
+  aspectRatio: '1',
 });

@@ -1,10 +1,18 @@
 import { Text } from '@/components/Text';
-import { player } from './Player.css';
+import { EmptySlot } from '../Dice';
+import { player, playerContainer } from './Player.css';
 
-export const Player = () => {
+type Props = {
+  reverse?: boolean;
+};
+
+export const Player = ({ reverse = false }: Props): JSX.Element => {
   return (
-    <div className={player}>
-      <Text>Player</Text>
+    <div className={playerContainer}>
+      <div className={player({ reverse })}>
+        <Text>Player: 0</Text>
+        <EmptySlot />
+      </div>
     </div>
   );
 };
