@@ -1,17 +1,19 @@
-import { Dice, DiceValue, EmptySlot } from '@/components/Dice';
-import { Text } from '../Text';
+import { Column as ColumnType, PlayerArea as PlayerAreaType } from '@/game';
+import { Dice, EmptySlot } from '@/components/Dice';
+import { useGameState } from '@/components/GameStateContext';
+import { Text } from '@/components/Text';
 import { board, column, playerArea } from './Board.css';
 
 const PlayerArea = ({
   data,
-  playerIdx,
+  playerId,
 }: {
-  data: (DiceValue | null)[][];
-  playerIdx: number;
+  data: PlayerAreaType;
+  playerId: string;
 }): JSX.Element => (
   <div className={playerArea}>
     {data.map((column, columnIdx) => (
-      <Column data={column} reverse={playerIdx === 1} key={columnIdx} />
+      <Column data={column} reverse={playerId === 'Player 2'} key={columnIdx} />
     ))}
   </div>
 );
@@ -21,7 +23,7 @@ const Column = ({
   reverse,
   ...props
 }: {
-  data: (DiceValue | null)[];
+  data: ColumnType;
   reverse: boolean;
 }): JSX.Element => (
   <div className={column({ reverse })} {...props}>
@@ -32,24 +34,16 @@ const Column = ({
   </div>
 );
 
-const gameState = [
-  [
-    [1, null, null],
-    [1, 2, null],
-    [1, 2, 3],
-  ],
-  [
-    [4, null, null],
-    [4, 5, null],
-    [4, 5, 6],
-  ],
-] as (DiceValue | null)[][][];
-
 export const Board = () => {
+  const [gameState] = useGameState();
   return (
     <div className={board}>
-      {gameState.map((player, playerIdx) => (
-        <PlayerArea key={playerIdx} data={player} playerIdx={playerIdx} />
+      {Object.entries(gameState).map(([playerId, playerData]) => (
+        <PlayerArea
+          key={playerId}
+          data={playerData.board}
+          playerId={playerId}
+        />
       ))}
     </div>
   );

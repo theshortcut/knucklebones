@@ -1,17 +1,26 @@
+import { DiceValue } from '@/game';
 import { Text } from '@/components/Text';
-import { EmptySlot } from '../Dice';
+import { Dice, EmptySlot } from '@/components/Dice';
+import { useGameState } from '@/components/GameStateContext';
 import { player, playerContainer } from './Player.css';
 
 type Props = {
+  playerId: string;
   reverse?: boolean;
 };
 
-export const Player = ({ reverse = false }: Props): JSX.Element => {
+export const Player = ({ playerId, reverse = false }: Props): JSX.Element => {
+  const [gameState] = useGameState();
+
   return (
     <div className={playerContainer}>
       <div className={player({ reverse })}>
-        <Text>Player: 0</Text>
-        <EmptySlot />
+        <Text>{playerId}: 0</Text>
+        {gameState[playerId].roll ? (
+          <Dice value={gameState[playerId].roll as DiceValue} />
+        ) : (
+          <EmptySlot />
+        )}
       </div>
     </div>
   );

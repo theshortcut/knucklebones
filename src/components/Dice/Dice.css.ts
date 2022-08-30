@@ -12,7 +12,8 @@ export const dice = style({
   backgroundColor: vars.color.bodyText,
   borderRadius: '10%',
   gridGap: '2.5%',
-  padding: '5%',
+  padding: vars.space.md,
+  margin: vars.space.md,
   flex: 1,
 });
 
@@ -48,6 +49,7 @@ export const emptySlot = style({
   borderRadius: '10%',
   border: `1px solid ${vars.color.bodyText}`,
   flex: 1,
-  padding: '5%',
+  padding: vars.space.md,
+  margin: vars.space.md,
   aspectRatio: '1',
 });
