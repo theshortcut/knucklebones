@@ -76,14 +76,25 @@ type PlayDicePayload = {
 };
 export const playDice = ({ draft, columnId }: PlayDicePayload): GameState => {
   const { playerId, diceValue } = getCurrentPlayerIdAndDice(draft);
+  // add dice to players column
   const column = draft[playerId].board[columnId];
   const slotId = getEmptyColumnIndex(column);
   if (slotId === -1) throw new Error('Column is full');
+  // remove matching dice from opponent column
+  const opponentId = Object.keys(draft).find((v) => v !== playerId);
+  if (!opponentId) throw new Error('Unalbe to find opponent');
+  const opponentColumn = draft[opponentId].board[columnId];
+  draft[opponentId].board[columnId] = opponentColumn
+    .filter((d) => d !== diceValue)
+    .concat(Array(3).fill(null))
+    .slice(0, 3) as Column;
   column[slotId] = diceValue;
+  // check if this ends the game
   if (isGameOver(draft)) {
     draft[playerId].roll = null;
     return draft;
   }
+  // game not over, start the next turn
   return startTurn({ draft });
 };
 
