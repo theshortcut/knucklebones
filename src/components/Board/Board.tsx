@@ -1,4 +1,8 @@
-import { Column as ColumnType, PlayerArea as PlayerAreaType } from '@/game';
+import {
+  Column as ColumnType,
+  PlayerArea as PlayerAreaType,
+  scoreColumn,
+} from '@/game';
 import { Dice, EmptySlot } from '@/components/Dice';
 import { useGameState } from '@/components/GameStateContext';
 import { Text } from '@/components/Text';
@@ -10,29 +14,58 @@ const PlayerArea = ({
 }: {
   data: PlayerAreaType;
   playerId: string;
-}): JSX.Element => (
-  <div className={playerArea}>
-    {data.map((column, columnIdx) => (
-      <Column data={column} reverse={playerId === 'Player 2'} key={columnIdx} />
-    ))}
-  </div>
-);
+}): JSX.Element => {
+  const [gameState] = useGameState();
+  const isActive = gameState[playerId].roll !== null;
+  return (
+    <div className={playerArea}>
+      {data.map((column, columnIdx) => (
+        <Column
+          data={column}
+          isActive={isActive}
+          reverse={playerId === 'Player 2'}
+          key={columnIdx}
+          idx={columnIdx}
+        />
+      ))}
+    </div>
+  );
+};
 
 const Column = ({
   data,
   reverse,
+  idx,
+  isActive,
   ...props
 }: {
   data: ColumnType;
   reverse: boolean;
-}): JSX.Element => (
-  <div className={column({ reverse })} {...props}>
-    <Text textAlign="center">0</Text>
-    {data.map((dice, diceIdx) =>
-      dice ? <Dice value={dice} key={diceIdx} /> : <EmptySlot key={diceIdx} />
-    )}
-  </div>
-);
+  idx: number;
+  isActive: boolean;
+}): JSX.Element => {
+  const [, dispatch] = useGameState();
+  return isActive && data.some((v) => v === null) ? (
+    <button
+      className={column({ reverse })}
+      onClick={() => dispatch({ type: 'playDice', payload: { columnId: idx } })}
+      {...props}
+    >
+      <Text textAlign="center">{scoreColumn(data)}</Text>
+      {data.map((dice, diceIdx) =>
+        dice ? <Dice value={dice} key={diceIdx} /> : <EmptySlot key={diceIdx} />
+      )}
+    </button>
+  ) : (
+    <div className={column({ reverse })}>
+      {' '}
+      <Text textAlign="center">{scoreColumn(data)}</Text>
+      {data.map((dice, diceIdx) =>
+        dice ? <Dice value={dice} key={diceIdx} /> : <EmptySlot key={diceIdx} />
+      )}
+    </div>
+  );
+};
 
 export const Board = () => {
   const [gameState] = useGameState();

@@ -9,6 +9,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.35.1
   '@vanilla-extract/css': ^1.7.3
   '@vanilla-extract/recipes': ^0.2.5
+  '@vanilla-extract/sprinkles': ^1.4.1
   '@vanilla-extract/vite-plugin': ^3.3.1
   '@vitejs/plugin-react': ^2.0.1
   eslint: ^8.23.0
@@ -30,6 +31,7 @@ dependencies:
   '@radix-ui/colors': 0.1.8
   '@vanilla-extract/css': 1.7.3
   '@vanilla-extract/recipes': 0.2.5_@vanilla-extract+css@1.7.3
+  '@vanilla-extract/sprinkles': 1.4.1_@vanilla-extract+css@1.7.3
   immer: 9.0.15
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -633,6 +635,14 @@ packages:
 
   /@vanilla-extract/recipes/0.2.5_@vanilla-extract+css@1.7.3:
     resolution: {integrity: sha512-OWXUUiFJdswD3+Xg8f8avuw/vAHZRFS4oHqFeoV1TcO8cfbDQ0zmkreBHvyspoJU+qsyWK48yPHKSptqNRPy9Q==}
+    peerDependencies:
+      '@vanilla-extract/css': ^1.0.0
+    dependencies:
+      '@vanilla-extract/css': 1.7.3
+    dev: false
+
+  /@vanilla-extract/sprinkles/1.4.1_@vanilla-extract+css@1.7.3:
+    resolution: {integrity: sha512-aW6CfMMToX4a+baLuVxwcT0FSACjX3xrNt8wdi/3LLRlLAfhyue8OK7kJxhcYNZfydBeWTP59aRy8p5FUTIeew==}
     peerDependencies:
       '@vanilla-extract/css': ^1.0.0
     dependencies:

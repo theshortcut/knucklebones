@@ -5,6 +5,7 @@ import { Player } from '@/components/Player';
 export const Game = () => {
   const [gameState] = useGameState();
   const playerIds = Object.keys(gameState);
+
   return (
     <>
       <Player playerId={playerIds[0]} />

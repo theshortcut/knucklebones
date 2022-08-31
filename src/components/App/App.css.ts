@@ -1,50 +1,25 @@
-import { globalStyle, style } from '@vanilla-extract/css';
-import { vars, mediaQueries } from '@/theme.css';
+import { style } from '@vanilla-extract/css';
+import { atoms } from '@/styles/atoms.css';
+import { mediaQueries } from '@/styles/theme.css';
 
-/**
- * Do not unset attributes of elements listed here.
- */
-const parentElements = ['canvas', 'iframe', 'img', 'svg', 'video'];
-const childElements = [
-  'svg *',
-  'symbol *', // Mozilla Firefox Bug
-];
+export const app = style([
+  atoms({ display: 'grid', fontFamily: 'system' }),
+  {
+    gridTemplateRows: 'max-content 1fr',
+    height: '100vh',
+  },
+]);
 
-/**
- * Unset all except `display` property.
- */
-globalStyle(`*:not(${[...parentElements, ...childElements].join()})`, {
-  all: 'unset',
-  display: 'revert',
-});
+export const main = style([
+  atoms({ display: 'grid' }),
+  {
+    gridTemplateRows: '1fr 5fr 1fr',
 
-/**
- * Best practice of `box-sizing` property.
- */
-globalStyle('*, *::before, *::after', {
-  boxSizing: 'border-box',
-});
-
-globalStyle('body', {
-  background: vars.color.background,
-});
-
-export const app = style({
-  fontFamily: vars.font.system,
-  display: 'grid',
-  gridTemplateRows: 'max-content 1fr',
-  height: '100vh',
-});
-
-export const main = style({
-  display: 'grid',
-  gridTemplateRows: '1fr 5fr 1fr',
-  overflow: 'hidden',
-
-  '@media': {
-    [mediaQueries.lg]: {
-      gridTemplateRows: 'auto',
-      gridTemplateColumns: 'repeat(3, 1fr)',
+    '@media': {
+      [mediaQueries.lg]: {
+        gridTemplateRows: 'auto',
+        gridTemplateColumns: '1fr 2fr 1fr',
+      },
     },
   },
-});
+]);

@@ -43,6 +43,7 @@ export const vars = createGlobalTheme(':root', {
     },
   },
   space: {
+    0: '0',
     xs: '0.25rem',
     sm: '0.5rem',
     md: '1rem',
@@ -53,8 +54,8 @@ export const vars = createGlobalTheme(':root', {
 });
 
 export const mediaQueries = {
-  sm: '(min-width: 640px)',
-  md: '(min-width: 768px)',
-  lg: '(min-width: 1024px)',
-  xl: '(min-width: 1280px)',
+  sm: 'screen and (min-width: 640px)',
+  md: 'screen and (min-width: 768px)',
+  lg: 'screen and (min-width: 1024px)',
+  xl: 'screen and (min-width: 1280px)',
 };

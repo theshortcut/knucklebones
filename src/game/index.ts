@@ -12,31 +12,40 @@ export type PlayerData = {
 
 export type GameState = Record<string, PlayerData>;
 
-export type MoveActions = {
-  type: 'playDice';
-  payload: Omit<PlayDicePayload, 'draft'>;
-};
+export type MoveActions =
+  | {
+      type: 'playDice';
+      payload: Omit<PlayDicePayload, 'draft'>;
+    }
+  | {
+      type: 'startTurn';
+    };
 
 const initialColumn: Column = [null, null, null];
 
 export const setup = (
   player1Id = 'Player 1',
   player2Id = 'Player 2'
-): GameState => ({
-  [player1Id]: {
-    board: [[...initialColumn], [...initialColumn], [...initialColumn]],
-    roll: null,
-  },
-  [player2Id]: {
-    board: [[...initialColumn], [...initialColumn], [...initialColumn]],
-    roll: null,
-  },
-});
+): GameState => {
+  const startingPlayer = Math.random() >= 0.5 ? player1Id : player2Id;
+  return {
+    [player1Id]: {
+      board: [[...initialColumn], [...initialColumn], [...initialColumn]],
+      roll: startingPlayer === player1Id ? getRandomDiceValue() : null,
+    },
+    [player2Id]: {
+      board: [[...initialColumn], [...initialColumn], [...initialColumn]],
+      roll: startingPlayer === player2Id ? getRandomDiceValue() : null,
+    },
+  };
+};
 
 export const moveReducer: Reducer<GameState, MoveActions> = (draft, action) => {
   switch (action.type) {
     case 'playDice':
       return playDice({ draft, ...action.payload });
+    case 'startTurn':
+      return startTurn({ draft });
   }
 };
 
@@ -71,10 +80,14 @@ export const playDice = ({ draft, columnId }: PlayDicePayload): GameState => {
   const slotId = getEmptyColumnIndex(column);
   if (slotId === -1) throw new Error('Column is full');
   column[slotId] = diceValue;
-  return draft;
+  if (isGameOver(draft)) {
+    draft[playerId].roll = null;
+    return draft;
+  }
+  return startTurn({ draft });
 };
 
-export const rollDice = (draft: GameState): GameState => {
+export const startTurn = ({ draft }: { draft: GameState }): GameState => {
   const oldPlayerId = getCurrentPlayerId(draft);
   const newPlayerId = Object.keys(draft).find((v) => v !== oldPlayerId);
   if (!newPlayerId) throw new Error('Unable to find next player');
@@ -82,3 +95,22 @@ export const rollDice = (draft: GameState): GameState => {
   draft[newPlayerId].roll = getRandomDiceValue();
   return draft;
 };
+
+export const scoreColumn = (column: Column): number => {
+  return [...column].sort().reduce((result, item, index, sorted) => {
+    if (!item) return result;
+    if (index === 2 && sorted[0] === item && sorted[1] === item)
+      return item * 9;
+    if (index > 0 && sorted[index - 1] === item) return result + item * 3;
+    return result + item;
+  }, 0);
+};
+
+export const scorePlayer = (player: PlayerArea): number => {
+  return player.reduce((result, column) => result + scoreColumn(column), 0);
+};
+
+export const isGameOver = (gameState: GameState): boolean =>
+  Object.values(gameState).some((p) =>
+    p.board.every((c) => getEmptyColumnIndex(c) === -1)
+  );

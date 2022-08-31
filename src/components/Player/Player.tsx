@@ -1,4 +1,4 @@
-import { DiceValue } from '@/game';
+import { DiceValue, scorePlayer } from '@/game';
 import { Text } from '@/components/Text';
 import { Dice, EmptySlot } from '@/components/Dice';
 import { useGameState } from '@/components/GameStateContext';
@@ -15,7 +15,9 @@ export const Player = ({ playerId, reverse = false }: Props): JSX.Element => {
   return (
     <div className={playerContainer}>
       <div className={player({ reverse })}>
-        <Text>{playerId}: 0</Text>
+        <Text>
+          {playerId}: {scorePlayer(gameState[playerId].board)}
+        </Text>
         {gameState[playerId].roll ? (
           <Dice value={gameState[playerId].roll as DiceValue} />
         ) : (

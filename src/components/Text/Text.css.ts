@@ -1,46 +1,46 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes';
-import { vars } from '@/theme.css';
+import { atoms } from '@/styles/atoms.css';
 
 export const text = recipe({
-  base: {
-    fontFamily: vars.font.system,
-    color: vars.color.bodyText,
-  },
+  base: atoms({
+    fontFamily: 'system',
+    color: { lightMode: 'background', darkMode: 'bodyText' },
+  }),
   variants: {
     size: {
-      small: { fontSize: vars.font.size.sm },
-      medium: { fontSize: vars.font.size.md },
-      large: { fontSize: vars.font.size.lg },
+      small: atoms({ fontSize: 'sm' }),
+      medium: atoms({ fontSize: 'md' }),
+      large: atoms({ fontSize: 'lg' }),
     },
     textAlign: {
-      left: { textAlign: 'left' },
-      center: { textAlign: 'center' },
-      right: { textAlign: 'right' },
+      left: atoms({ textAlign: 'left' }),
+      center: atoms({ textAlign: 'center' }),
+      right: atoms({ textAlign: 'right' }),
     },
     type: {
-      heading: {
-        letterSpacing: vars.font.letterSpacing.tight,
-        lineHeight: vars.font.lineHeight.relaxed,
-        fontWeight: vars.font.weight.semibold,
-      },
-      body: {
-        letterSpacing: vars.font.letterSpacing.normal,
-        lineHeight: vars.font.lineHeight.normal,
-      },
+      heading: atoms({
+        letterSpacing: 'tight',
+        lineHeight: 'relaxed',
+        fontWeight: 'semibold',
+      }),
+      body: atoms({
+        letterSpacing: 'normal',
+        lineHeight: 'normal',
+      }),
     },
   },
   compoundVariants: [
     {
       variants: { type: 'heading', size: 'small' },
-      style: { fontSize: vars.font.size.md },
+      style: atoms({ fontSize: 'md' }),
     },
     {
       variants: { type: 'heading', size: 'medium' },
-      style: { fontSize: vars.font.size.lg },
+      style: atoms({ fontSize: 'lg' }),
     },
     {
       variants: { type: 'heading', size: 'large' },
-      style: { fontSize: vars.font.size.xl },
+      style: atoms({ fontSize: 'xl' }),
     },
   ],
   defaultVariants: {
