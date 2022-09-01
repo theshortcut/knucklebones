@@ -13,6 +13,7 @@ export type PlayerData = {
 export type GameState = Record<string, PlayerData>;
 
 export type MoveActions =
+  | { type: 'newGame' }
   | {
       type: 'playDice';
       payload: Omit<PlayDicePayload, 'draft'>;
@@ -42,6 +43,8 @@ export const setup = (
 
 export const moveReducer: Reducer<GameState, MoveActions> = (draft, action) => {
   switch (action.type) {
+    case 'newGame':
+      return setup(...Object.keys(draft));
     case 'playDice':
       return playDice({ draft, ...action.payload });
     case 'startTurn':

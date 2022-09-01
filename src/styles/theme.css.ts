@@ -1,10 +1,12 @@
 import { createGlobalTheme } from '@vanilla-extract/css';
-import { gray } from '@radix-ui/colors';
+import { blackA, gray, whiteA } from '@radix-ui/colors';
 
 export const vars = createGlobalTheme(':root', {
   color: {
     background: gray.gray12,
     bodyText: gray.gray4,
+    overlaysDark: blackA.blackA11,
+    overlaysLight: whiteA.whiteA11,
   },
   font: {
     system: `system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`,
