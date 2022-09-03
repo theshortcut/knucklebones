@@ -36,7 +36,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build artifacts
-        run: pnpm build
+        run: pnpm build --base=/knucklebones/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
