@@ -16,7 +16,8 @@ const PlayerArea = ({
   playerId: string;
 }): JSX.Element => {
   const [gameState] = useGameState();
-  const isActive = gameState[playerId].roll !== null;
+  const isActive =
+    gameState[playerId].turn && gameState[playerId].type === 'local';
   return (
     <div className={playerArea}>
       {data.map((column, columnIdx) => (
@@ -48,7 +49,10 @@ const Column = ({
   return isActive && data.some((v) => v === null) ? (
     <button
       className={column({ reverse })}
-      onClick={() => dispatch({ type: 'playDice', payload: { columnId: idx } })}
+      onClick={() => {
+        dispatch({ type: 'playDice', payload: { columnId: idx } });
+        dispatch({ type: 'rollDice' });
+      }}
       {...props}
     >
       <Text textAlign="center">{scoreColumn(data)}</Text>

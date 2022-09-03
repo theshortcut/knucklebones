@@ -28,10 +28,15 @@ globalStyle('*, *::before, *::after', {
 globalStyle('body', {
   background: vars.color.background,
   color: vars.color.bodyText,
+  height: '100%',
   '@media': {
     '(prefers-color-scheme: light)': {
       background: vars.color.bodyText,
       color: vars.color.background,
     },
   },
+});
+
+globalStyle('html, #root', {
+  height: '100%',
 });

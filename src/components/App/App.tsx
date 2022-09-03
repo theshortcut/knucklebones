@@ -1,5 +1,5 @@
 import { OverlayProvider } from 'react-aria';
-import { app, main } from './App.css';
+import { app, main, overlayContainer } from './App.css';
 import { Text } from '@/components/Text';
 import { GameStateProvider } from '@/components/GameStateContext';
 import { Game } from '@/components/Game';
@@ -7,7 +7,7 @@ import { Game } from '@/components/Game';
 export const App = () => {
   return (
     <GameStateProvider>
-      <OverlayProvider>
+      <OverlayProvider className={overlayContainer}>
         <div className={app}>
           <Text as="h1" size="large" type="heading" textAlign="center">
             Knucklebones

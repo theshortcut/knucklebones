@@ -1,13 +1,26 @@
 import { atoms } from '@/styles/atoms.css';
-import { vars } from '@/styles/theme.css';
+import { mediaQueries, vars } from '@/styles/theme.css';
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-export const board = atoms({
-  display: 'flex',
-  flexDirection: 'column-reverse',
-  placeItems: 'stretch',
-});
+export const board = style([
+  atoms({
+    display: 'flex',
+    flexDirection: 'column-reverse',
+    placeItems: 'stretch',
+  }),
+  {
+    flex: 5,
+    alignSelf: 'stretch',
+    justifySelf: 'stretch',
+
+    '@media': {
+      [mediaQueries.lg]: {
+        flex: 2,
+      },
+    },
+  },
+]);
 
 export const playerArea = style([
   atoms({
