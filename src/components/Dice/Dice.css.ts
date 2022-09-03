@@ -1,5 +1,5 @@
 import { atoms } from '@/styles/atoms.css';
-import { vars } from '@/styles/theme.css';
+import { mediaQueries, vars } from '@/styles/theme.css';
 import { style } from '@vanilla-extract/css';
 import { playerContainer } from '../Player/Player.css';
 
@@ -7,7 +7,7 @@ export const dice = style([
   atoms({
     display: 'grid',
     background: { lightMode: 'background', darkMode: 'bodyText' },
-    margin: { sm: 'sm', lg: 'lg' },
+    margin: { sm: 'xs', lg: 'lg' },
   }),
   {
     gridTemplateAreas: `
@@ -21,7 +21,13 @@ export const dice = style([
     selectors: {
       [`${playerContainer} &`]: {
         justifySelf: 'stretch',
-        minWidth: vars.space.xl,
+        minWidth: vars.space.lg,
+        margin: 0,
+        '@media': {
+          [mediaQueries.lg]: {
+            minWidth: vars.space.xl,
+          },
+        },
       },
     },
   },
@@ -78,7 +84,7 @@ export const pip = style([
 
 export const emptySlot = style([
   atoms({
-    margin: { sm: 'sm', lg: 'lg' },
+    margin: { sm: 'xs', lg: 'lg' },
     borderColor: { lightMode: 'background', darkMode: 'bodyText' },
   }),
   {
@@ -90,7 +96,13 @@ export const emptySlot = style([
     selectors: {
       [`${playerContainer} &`]: {
         justifySelf: 'stretch',
-        minWidth: vars.space.xl,
+        minWidth: vars.space.lg,
+        margin: 0,
+        '@media': {
+          [mediaQueries.lg]: {
+            minWidth: vars.space.xl,
+          },
+        },
       },
     },
   },
