@@ -24,13 +24,15 @@ export const board = style([
 
 export const playerArea = style([
   atoms({
-    display: 'grid',
-    columnGap: 'md',
-    padding: { sm: 'md', xl: 'lg' },
+    display: 'flex',
+    flexDirection: 'row',
+    placeItems: 'stretch',
+    gap: 'md',
+    padding: 'md',
   }),
   {
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    flex: 1,
+    height: `calc(50% - (2*${vars.space.md}))`,
+    width: `calc(100% - (2*${vars.space.md}))`,
   },
 ]);
 
@@ -38,25 +40,26 @@ export const column = recipe({
   base: style([
     atoms({
       display: 'flex',
-      gap: { sm: 'sm', xl: 'lg' },
-      alignItems: 'center',
+      placeItems: 'center',
     }),
     {
+      flex: 1,
+      overflow: 'hidden',
       borderRadius: vars.space.md,
       selectors: {
         'button&': {
-          outline: `1px solid ${vars.color.bodyText}`,
+          boxShadow: `0 0 1px ${vars.color.bodyText}`,
           '@media': {
             '(prefers-color-scheme: light)': {
-              outlineColor: vars.color.background,
+              boxShadow: `0 0 1px ${vars.color.background}`,
             },
           },
         },
         'button&:hover': {
-          outline: `2px solid ${vars.color.bodyText}`,
+          boxShadow: `0 0 2px ${vars.color.bodyText}`,
           '@media': {
             '(prefers-color-scheme: light)': {
-              outlineColor: vars.color.background,
+              boxShadow: `0 0 2px ${vars.color.background}`,
             },
           },
         },

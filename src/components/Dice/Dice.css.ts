@@ -7,7 +7,7 @@ export const dice = style([
   atoms({
     display: 'grid',
     background: { lightMode: 'background', darkMode: 'bodyText' },
-    margin: { sm: 0, lg: 'lg' },
+    margin: { sm: 'sm', lg: 'lg' },
   }),
   {
     gridTemplateAreas: `
@@ -78,7 +78,7 @@ export const pip = style([
 
 export const emptySlot = style([
   atoms({
-    margin: { sm: 0, lg: 'lg' },
+    margin: { sm: 'sm', lg: 'lg' },
     borderColor: { lightMode: 'background', darkMode: 'bodyText' },
   }),
   {

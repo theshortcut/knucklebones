@@ -22,6 +22,8 @@ export const main = style([
     flex: 1,
     justifySelf: 'stretch',
     alignSelf: 'stretch',
+    height: '100%',
+    overflow: 'hidden',
   },
 ]);
 
