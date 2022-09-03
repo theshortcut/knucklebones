@@ -47,7 +47,7 @@ export const column = recipe({
       overflow: 'hidden',
       borderRadius: vars.space.md,
       selectors: {
-        'button&': {
+        '&:not(:disabled)': {
           boxShadow: `0 0 1px ${vars.color.bodyText}`,
           '@media': {
             '(prefers-color-scheme: light)': {
@@ -55,7 +55,7 @@ export const column = recipe({
             },
           },
         },
-        'button&:hover': {
+        '&:hover:not(:disabled)': {
           boxShadow: `0 0 2px ${vars.color.bodyText}`,
           '@media': {
             '(prefers-color-scheme: light)': {

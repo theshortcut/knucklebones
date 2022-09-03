@@ -1,3 +1,4 @@
+import { AnimatePresence } from 'framer-motion';
 import {
   Column as ColumnType,
   PlayerArea as PlayerAreaType,
@@ -46,8 +47,9 @@ const Column = ({
   isActive: boolean;
 }): JSX.Element => {
   const [, dispatch] = useGameState();
-  return isActive && data.some((v) => v === null) ? (
+  return (
     <button
+      disabled={!(isActive && data.some((v) => v === null))}
       className={column({ reverse })}
       onClick={() => {
         dispatch({ type: 'playDice', payload: { columnId: idx } });
@@ -55,19 +57,17 @@ const Column = ({
       }}
       {...props}
     >
-      <Text textAlign="center">{scoreColumn(data)}</Text>
-      {data.map((dice, diceIdx) =>
-        dice ? <Dice value={dice} key={diceIdx} /> : <EmptySlot key={diceIdx} />
-      )}
+      <AnimatePresence>
+        <Text textAlign="center">{scoreColumn(data)}</Text>
+        {data.map((dice, diceIdx) =>
+          dice ? (
+            <Dice value={dice} key={diceIdx} />
+          ) : (
+            <EmptySlot key={diceIdx} />
+          )
+        )}
+      </AnimatePresence>
     </button>
-  ) : (
-    <div className={column({ reverse })}>
-      {' '}
-      <Text textAlign="center">{scoreColumn(data)}</Text>
-      {data.map((dice, diceIdx) =>
-        dice ? <Dice value={dice} key={diceIdx} /> : <EmptySlot key={diceIdx} />
-      )}
-    </div>
   );
 };
 
