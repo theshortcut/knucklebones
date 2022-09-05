@@ -49,7 +49,7 @@ const responsiveProperties = defineProperties({
 const colorModeProperties = defineProperties({
   conditions: {
     darkMode: {},
-    lightMode: { '@media': '(prefers-color-scheme: light)' },
+    lightMode: { '@media': mediaQueries.lightMode },
   },
   defaultCondition: 'darkMode',
   properties: {

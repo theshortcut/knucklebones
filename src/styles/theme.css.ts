@@ -1,5 +1,5 @@
 import { createGlobalTheme } from '@vanilla-extract/css';
-import { blackA, gray, whiteA } from '@radix-ui/colors';
+import { blackA, gray, whiteA, blue } from '@radix-ui/colors';
 
 export const vars = createGlobalTheme(':root', {
   color: {
@@ -7,6 +7,12 @@ export const vars = createGlobalTheme(':root', {
     bodyText: gray.gray4,
     overlaysDark: blackA.blackA11,
     overlaysLight: whiteA.whiteA11,
+    buttonPrimaryBackground: blue.blue12,
+    buttonPrimaryBackgroundActive: blue.blue11,
+    buttonPrimaryBackgroundLight: blue.blue7,
+    buttonPrimaryBackgroundLightActive: blue.blue8,
+    buttonPrimaryForeground: gray.gray4,
+    buttonPrimaryForegroundLight: gray.gray12,
   },
   font: {
     system: `system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`,
@@ -60,4 +66,5 @@ export const mediaQueries = {
   md: 'screen and (min-width: 768px)',
   lg: 'screen and (min-width: 1024px)',
   xl: 'screen and (min-width: 1280px)',
+  lightMode: '(prefers-color-scheme: light)',
 };

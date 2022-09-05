@@ -1,5 +1,6 @@
 import { OverlayContainer } from 'react-aria';
 import { Board } from '@/components/Board';
+import { Button } from '@/components/Button';
 import { Text } from '@/components/Text';
 import { Dialog } from '@/components/Dialog';
 import { Player } from '@/components/Player';
@@ -9,10 +10,18 @@ import {
   isGameOver as checkIsGameOver,
   scorePlayer,
 } from '@/game';
-import { useEffect, useMemo } from 'react';
 import { evaluate } from '@/game/expectiminimax';
+import { Dispatch, SetStateAction, useEffect, useMemo } from 'react';
 
-export const Game = () => {
+type Props = {
+  setCurrentScene: Dispatch<
+    SetStateAction<
+      'mainMenu' | 'game_ai' | 'game_host' | 'game_join' | undefined
+    >
+  >;
+  gameType: 'ai' | 'host' | 'join';
+};
+export const Game = ({ setCurrentScene, gameType }: Props) => {
   const [gameState, dispatch] = useGameState();
   const playerIds = Object.keys(gameState);
   const isGameOver = useMemo(() => checkIsGameOver(gameState), [gameState]);
@@ -51,9 +60,12 @@ export const Game = () => {
         <OverlayContainer>
           <Dialog title={`${scores[0].playerId} Wins!`}>
             <Text>{`${scores[0].score} - ${scores[1].score}`}</Text>
-            <button onClick={() => dispatch({ type: 'newGame' })}>
+            <Button onClick={() => dispatch({ type: 'newGame' })}>
               Play Again
-            </button>
+            </Button>
+            <Button onClick={() => setCurrentScene('mainMenu')}>
+              Main Menu
+            </Button>
           </Dialog>
         </OverlayContainer>
       )}
