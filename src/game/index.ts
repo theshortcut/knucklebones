@@ -10,13 +10,14 @@ import {
 export * from './types';
 export * from './score';
 export * from './helpers';
-import { Column, DiceValue, GameState, MoveActions } from './types';
+import { Column, DiceValue, GameState, MoveActions, PlayerType } from './types';
 
 const initialColumn: Column = [null, null, null];
 
 export const setup = (
   player1Id = 'Player 1',
-  player2Id = 'Player 2'
+  player2Id = 'Player 2',
+  player2Type: PlayerType = 'easyAI'
 ): GameState => {
   const startingPlayer = Math.random() >= 0.5 ? player1Id : player2Id;
   return {
@@ -30,7 +31,7 @@ export const setup = (
       board: [[...initialColumn], [...initialColumn], [...initialColumn]],
       roll: startingPlayer === player2Id ? getRandomDiceValue() : null,
       turn: startingPlayer === player2Id ? true : false,
-      type: 'easyAI',
+      type: player2Type,
     },
   };
 };

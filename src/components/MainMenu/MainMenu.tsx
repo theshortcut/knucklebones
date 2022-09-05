@@ -1,6 +1,7 @@
+import { Dispatch, SetStateAction } from 'react';
 import { Button } from '@/components/Button';
 import { Text } from '@/components/Text';
-import { Dispatch, SetStateAction } from 'react';
+import { TextInput } from '@/components/TextInput';
 import { buttonContainer, formContainer, mainMenu } from './MainMenu.css';
 
 type Props = {
@@ -18,11 +19,13 @@ export const MainMenu = ({ setCurrentScene, userName, setUserName }: Props) => {
     <div className={mainMenu}>
       <div className={formContainer}>
         <Text as="label">Username</Text>
-        <input
-          type="text"
+        <TextInput
           value={userName}
           onChange={(e) => {
-            setUserName(e.target.value);
+            setUserName(e.currentTarget.value);
+          }}
+          onBlur={(e) => {
+            if (!e.currentTarget.value) setUserName('Player 1');
           }}
         />
       </div>

@@ -5,17 +5,18 @@ export const mainMenu = style([
   atoms({
     display: 'flex',
     flexDirection: 'row',
-    placeItems: 'center',
   }),
   {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
   },
 ]);
 
 export const formContainer = atoms({
   display: 'flex',
   flexDirection: 'column',
-  gap: 'md',
+  gap: 'sm',
 });
 
 export const buttonContainer = atoms({

@@ -13,6 +13,8 @@ export const vars = createGlobalTheme(':root', {
     buttonPrimaryBackgroundLightActive: blue.blue8,
     buttonPrimaryForeground: gray.gray4,
     buttonPrimaryForegroundLight: gray.gray12,
+    textInputBorder: gray.gray6,
+    textInputBorderLight: gray.gray10,
   },
   font: {
     system: `system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`,

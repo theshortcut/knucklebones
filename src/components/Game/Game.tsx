@@ -8,10 +8,20 @@ import { useGameState } from '@/components/GameStateContext';
 import {
   getPlayersByType,
   isGameOver as checkIsGameOver,
+  PeerType,
   scorePlayer,
 } from '@/game';
 import { evaluate } from '@/game/expectiminimax';
-import { Dispatch, SetStateAction, useEffect, useMemo } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { usePeerJs } from '@/utils/usePeerJs';
+import { TextInput } from '../TextInput';
 
 type Props = {
   setCurrentScene: Dispatch<
@@ -19,12 +29,17 @@ type Props = {
       'mainMenu' | 'game_ai' | 'game_host' | 'game_join' | undefined
     >
   >;
-  gameType: 'ai' | 'host' | 'join';
+  gameType: PeerType;
 };
 export const Game = ({ setCurrentScene, gameType }: Props) => {
   const [gameState, dispatch] = useGameState();
   const playerIds = Object.keys(gameState);
   const isGameOver = useMemo(() => checkIsGameOver(gameState), [gameState]);
+  const [roomCode, setRoomCode] = useState<string | undefined>();
+  const roomCodeRef = useRef<HTMLInputElement>(null);
+  const peerId = usePeerJs(
+    ...([gameType, roomCode].filter(Boolean) as Parameters<typeof usePeerJs>)
+  );
 
   const scores = useMemo(() => {
     return Object.entries(gameState)
@@ -37,6 +52,7 @@ export const Game = ({ setCurrentScene, gameType }: Props) => {
 
   useEffect(() => {
     const { aiPlayer } = getPlayersByType(gameState);
+    if (aiPlayer.type === 'remote') return;
     if (!isGameOver && aiPlayer.turn && aiPlayer.roll) {
       setTimeout(() => {
         const moves = evaluate(gameState, 5);
@@ -66,6 +82,30 @@ export const Game = ({ setCurrentScene, gameType }: Props) => {
             <Button onClick={() => setCurrentScene('mainMenu')}>
               Main Menu
             </Button>
+          </Dialog>
+        </OverlayContainer>
+      )}
+      {gameType === 'host' && (
+        <OverlayContainer>
+          <Dialog title="Waiting for opponent">
+            <Text>{`Room: ${peerId}`}</Text>
+            <Button onClick={() => setCurrentScene('mainMenu')}>Cancel</Button>
+          </Dialog>
+        </OverlayContainer>
+      )}
+      {gameType === 'join' && (
+        <OverlayContainer>
+          <Dialog title="Enter room code">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setRoomCode(roomCodeRef.current?.value);
+              }}
+            >
+              <Text as="label">Room code:</Text>
+              <TextInput ref={roomCodeRef} placeholder="ABCDEF" />
+              <Button onClick={() => setCurrentScene('game_join')}>Join</Button>
+            </form>
           </Dialog>
         </OverlayContainer>
       )}

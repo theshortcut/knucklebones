@@ -3,6 +3,7 @@ export type CellValue = DiceValue | null;
 export type Column = [CellValue, CellValue, CellValue];
 export type PlayerArea = [Column, Column, Column];
 export type PlayerType = 'local' | 'remote' | 'easyAI' | 'mediumAI' | 'hardAI';
+export type PeerType = 'ai' | 'host' | 'join';
 
 export type PlayerData = {
   readonly board: PlayerArea;
