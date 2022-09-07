@@ -12,20 +12,21 @@ import { board, column, playerArea } from './Board.css';
 const PlayerArea = ({
   data,
   playerId,
+  userName,
 }: {
   data: PlayerAreaType;
   playerId: string;
+  userName: string;
 }): JSX.Element => {
   const [gameState] = useGameState();
-  const isActive =
-    gameState[playerId].turn && gameState[playerId].type === 'local';
+  const isActive = gameState[playerId].turn && playerId === userName;
   return (
     <div className={playerArea}>
       {data.map((column, columnIdx) => (
         <Column
           data={column}
           isActive={isActive}
-          reverse={playerId === 'Player 2'}
+          reverse={playerId !== userName}
           key={columnIdx}
           idx={columnIdx}
         />
@@ -52,8 +53,7 @@ const Column = ({
       disabled={!(isActive && data.some((v) => v === null))}
       className={column({ reverse })}
       onClick={() => {
-        dispatch({ type: 'playDice', payload: { columnId: idx } });
-        dispatch({ type: 'rollDice' });
+        dispatch({ type: 'playDice', payload: { columnId: idx, roll: true } });
       }}
       {...props}
     >
@@ -71,17 +71,23 @@ const Column = ({
   );
 };
 
-export const Board = () => {
+export const Board = ({ userName }: { userName: string }) => {
   const [gameState] = useGameState();
+  const [opponentId, opponentData] = Object.entries(gameState).filter(
+    ([k]) => k !== userName
+  )[0];
   return (
     <div className={board}>
-      {Object.entries(gameState).map(([playerId, playerData]) => (
-        <PlayerArea
-          key={playerId}
-          data={playerData.board}
-          playerId={playerId}
-        />
-      ))}
+      <PlayerArea
+        data={gameState[userName].board}
+        playerId={userName}
+        userName={userName}
+      />
+      <PlayerArea
+        data={opponentData.board}
+        playerId={opponentId}
+        userName={userName}
+      />
     </div>
   );
 };

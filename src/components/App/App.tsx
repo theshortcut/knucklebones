@@ -55,7 +55,11 @@ export const App = () => {
                 gameType === 'ai' ? 'easyAI' : 'remote'
               )}
             >
-              <Game setCurrentScene={setCurrentScene} gameType={gameType} />
+              <Game
+                setCurrentScene={setCurrentScene}
+                gameType={gameType}
+                userName={userName ?? 'Player 1'}
+              />
             </GameStateProvider>
           )}
           {currentScene === 'mainMenu' && (

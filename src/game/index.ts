@@ -39,7 +39,11 @@ export const setup = (
 export const moveReducer: Reducer<GameState, MoveActions> = (draft, action) => {
   switch (action.type) {
     case 'newGame':
-      return setup(...Object.keys(draft));
+      return setup(...Object.keys(draft), Object.values(draft)[1].type);
+    case 'recieveState':
+      return action.payload;
+    case 'setOpponentName':
+      return setOpponentName({ draft, ...action.payload });
     case 'rollDice':
       return rollDice({ draft, ...(action.payload || {}) });
     case 'playDice':
@@ -50,8 +54,13 @@ export const moveReducer: Reducer<GameState, MoveActions> = (draft, action) => {
 type PlayDicePayload = {
   draft: Draft<GameState>;
   columnId: number;
+  roll?: boolean;
 };
-export const playDice = ({ draft, columnId }: PlayDicePayload): GameState => {
+export const playDice = ({
+  draft,
+  columnId,
+  roll = false,
+}: PlayDicePayload): GameState => {
   const { playerId, diceValue } = getCurrentPlayerIdAndDice(draft);
   // add dice to players column
   const column = draft[playerId].board[columnId];
@@ -69,6 +78,7 @@ export const playDice = ({ draft, columnId }: PlayDicePayload): GameState => {
   draft[playerId].roll = null;
   draft[playerId].turn = false;
   draft[opponentId].turn = true;
+  if (roll) draft[opponentId].roll = getRandomDiceValue();
   return draft;
 };
 
@@ -80,4 +90,27 @@ export const rollDice = ({ draft, diceValue }: RollDicePayload): GameState => {
   const playerId = getCurrentPlayerId(draft);
   draft[playerId].roll = diceValue ?? getRandomDiceValue();
   return draft;
+};
+
+type SetOpponentNamePayload = {
+  draft: Draft<GameState>;
+  name: string;
+};
+export const setOpponentName = ({
+  draft,
+  name,
+}: SetOpponentNamePayload): GameState => {
+  const playerId = Object.entries(draft).find(
+    ([, v]) => v.type === 'local'
+  )?.[0];
+  const opponentId = Object.entries(draft).find(
+    ([, v]) => v.type === 'remote'
+  )?.[0];
+  if (!playerId || !opponentId)
+    throw new Error('Unable to find player or opponent');
+  const newState = {
+    [playerId]: draft[playerId],
+    [name]: draft[opponentId],
+  };
+  return newState;
 };

@@ -10,6 +10,7 @@ export type PlayerData = {
   readonly roll: CellValue;
   readonly turn: boolean;
   readonly type: PlayerType;
+  readonly connected?: boolean;
 };
 
 export type GameState = {
@@ -18,10 +19,12 @@ export type GameState = {
 
 export type MoveActions =
   | { type: 'newGame' }
+  | { type: 'recieveState'; payload: GameState }
+  | { type: 'setOpponentName'; payload: { name: string } }
   | { type: 'rollDice'; payload?: { diceValue: DiceValue } }
   | {
       type: 'playDice';
-      payload: { columnId: number };
+      payload: { columnId: number; roll?: boolean };
     };
 
 export type GameStateNode = {

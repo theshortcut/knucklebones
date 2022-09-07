@@ -30,15 +30,18 @@ type Props = {
     >
   >;
   gameType: PeerType;
+  userName: string;
 };
-export const Game = ({ setCurrentScene, gameType }: Props) => {
+export const Game = ({ setCurrentScene, gameType, userName }: Props) => {
   const [gameState, dispatch] = useGameState();
   const playerIds = Object.keys(gameState);
   const isGameOver = useMemo(() => checkIsGameOver(gameState), [gameState]);
   const [roomCode, setRoomCode] = useState<string | undefined>();
   const roomCodeRef = useRef<HTMLInputElement>(null);
-  const peerId = usePeerJs(
-    ...([gameType, roomCode].filter(Boolean) as Parameters<typeof usePeerJs>)
+  const [peerId, connectionState] = usePeerJs(
+    ...([gameType, userName, roomCode].filter(Boolean) as Parameters<
+      typeof usePeerJs
+    >)
   );
 
   const scores = useMemo(() => {
@@ -51,6 +54,7 @@ export const Game = ({ setCurrentScene, gameType }: Props) => {
   }, [gameState]);
 
   useEffect(() => {
+    if (Object.values(gameState).every((p) => p.type === 'local')) return;
     const { aiPlayer } = getPlayersByType(gameState);
     if (aiPlayer.type === 'remote') return;
     if (!isGameOver && aiPlayer.turn && aiPlayer.roll) {
@@ -69,9 +73,9 @@ export const Game = ({ setCurrentScene, gameType }: Props) => {
 
   return (
     <>
-      <Player playerId={playerIds[0]} />
-      <Board />
-      <Player playerId={playerIds[1]} reverse />
+      <Player playerId={userName} />
+      <Board userName={userName} />
+      <Player playerId={playerIds.filter((i) => i !== userName)[0]} reverse />
       {isGameOver && (
         <OverlayContainer>
           <Dialog title={`${scores[0].playerId} Wins!`}>
@@ -85,7 +89,7 @@ export const Game = ({ setCurrentScene, gameType }: Props) => {
           </Dialog>
         </OverlayContainer>
       )}
-      {gameType === 'host' && (
+      {gameType === 'host' && connectionState === 'disconnected' && (
         <OverlayContainer>
           <Dialog title="Waiting for opponent">
             <Text>{`Room: ${peerId}`}</Text>
@@ -93,7 +97,7 @@ export const Game = ({ setCurrentScene, gameType }: Props) => {
           </Dialog>
         </OverlayContainer>
       )}
-      {gameType === 'join' && (
+      {gameType === 'join' && connectionState === 'disconnected' && (
         <OverlayContainer>
           <Dialog title="Enter room code">
             <form
