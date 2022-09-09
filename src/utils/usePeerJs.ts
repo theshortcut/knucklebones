@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Peer, { DataConnection } from 'peerjs';
+import { Peer, DataConnection } from 'peerjs';
 import { GameState, MoveActions, PeerType } from '@/game';
 import { useGameState } from '@/components/GameStateContext';
 import { generateRandomId } from './generateRandomId';
@@ -20,7 +20,6 @@ export function usePeerJs(
 
   useEffect(() => {
     (async () => {
-      const { Peer } = await import('peerjs');
       peer.current = new Peer(`cfknucklebones-${peerId.current}`);
     })();
     return () => {
