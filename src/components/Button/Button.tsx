@@ -8,8 +8,8 @@ export type ButtonProps = {
 } & ButtonVariants;
 
 export const Button = createComponent<ButtonProps>(
-  ({ size, type, ...props }) => {
-    const className = button({ size, type });
+  ({ size, variant, ...props }) => {
+    const className = button({ size, variant });
     return createElement('button', { className, ...props });
   }
 );

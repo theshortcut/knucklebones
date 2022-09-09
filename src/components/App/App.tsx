@@ -44,7 +44,7 @@ export const App = () => {
             Knucklebones
           </Text>
           {currentScene?.startsWith('game') && (
-            <Button type="text" onClick={() => setCurrentScene('mainMenu')}>
+            <Button variant="text" onClick={() => setCurrentScene('mainMenu')}>
               Exit
             </Button>
           )}

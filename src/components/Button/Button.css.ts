@@ -38,7 +38,7 @@ export const button = recipe({
       medium: atoms({ fontSize: 'md', padding: 'md' }),
       large: atoms({ fontSize: 'lg', padding: 'lg' }),
     },
-    type: {
+    variant: {
       primary: style([
         atoms({
           color: {
@@ -99,7 +99,7 @@ export const button = recipe({
   },
   defaultVariants: {
     size: 'medium',
-    type: 'primary',
+    variant: 'primary',
   },
 });
 

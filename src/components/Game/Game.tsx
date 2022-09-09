@@ -85,7 +85,7 @@ export const Game = ({ setCurrentScene, gameType, userName }: Props) => {
             </Flex>
             <Flex gap="md" justifyContent="flex-end">
               <Button
-                type="secondary"
+                variant="secondary"
                 size="small"
                 onClick={() => setCurrentScene('mainMenu')}
               >
@@ -110,7 +110,7 @@ export const Game = ({ setCurrentScene, gameType, userName }: Props) => {
             <Flex gap="md" justifyContent="flex-end">
               <Button
                 size="small"
-                type="secondary"
+                variant="secondary"
                 onClick={() => setCurrentScene('mainMenu')}
               >
                 Cancel
@@ -123,6 +123,7 @@ export const Game = ({ setCurrentScene, gameType, userName }: Props) => {
         <OverlayContainer>
           <Dialog title="Enter room code">
             <form
+              action="#"
               onSubmit={(e) => {
                 e.preventDefault();
                 setRoomCode(roomCodeRef.current?.value.toUpperCase());
@@ -130,22 +131,24 @@ export const Game = ({ setCurrentScene, gameType, userName }: Props) => {
             >
               <Flex padding="md" flexDirection="column">
                 <Text as="label">Room code:</Text>
-                <TextInput ref={roomCodeRef} placeholder="ABCDEF" />
+                <TextInput
+                  ref={roomCodeRef}
+                  placeholder="ABCDEF"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  autoComplete="off"
+                />
               </Flex>
               <Flex gap="md" justifyContent="flex-end">
                 <Button
                   size="small"
-                  type="secondary"
+                  type="button"
+                  variant="secondary"
                   onClick={() => setCurrentScene('mainMenu')}
                 >
                   Cancel
                 </Button>
-                <Button
-                  size="small"
-                  onClick={() => setCurrentScene('game_join')}
-                >
-                  Join
-                </Button>
+                <Button size="small">Join</Button>
               </Flex>
             </form>
           </Dialog>
