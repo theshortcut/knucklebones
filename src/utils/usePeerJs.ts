@@ -3,7 +3,6 @@ import Peer, { DataConnection } from 'peerjs';
 import { GameState, MoveActions, PeerType } from '@/game';
 import { useGameState } from '@/components/GameStateContext';
 import { generateRandomId } from './generateRandomId';
-import { noop } from './noop';
 
 export type ConnectionState = 'disconnected' | 'reconnecting' | 'connected';
 
@@ -20,7 +19,10 @@ export function usePeerJs(
   const [gameState, dispatch, addObserver, removeObserver] = useGameState();
 
   useEffect(() => {
-    peer.current = new Peer(`cfknucklebones-${peerId.current}`);
+    (async () => {
+      const { Peer } = await import('peerjs');
+      peer.current = new Peer(`cfknucklebones-${peerId.current}`);
+    })();
     return () => {
       peer.current?.destroy();
     };

@@ -1,5 +1,5 @@
 import { OverlayProvider } from 'react-aria';
-import { app, main, overlayContainer } from './App.css';
+import { app, main, navContainer, navTitle, overlayContainer } from './App.css';
 import { Text } from '@/components/Text';
 import { GameStateProvider } from '@/components/GameStateContext';
 import { Game } from '@/components/Game';
@@ -33,15 +33,18 @@ export const App = () => {
   return (
     <OverlayProvider className={overlayContainer}>
       <div className={app}>
-        <nav>
-          <Text as="h1" size="large" type="heading" textAlign="center">
+        <nav className={navContainer}>
+          <Text
+            as="h1"
+            size="large"
+            type="heading"
+            textAlign="center"
+            className={navTitle}
+          >
             Knucklebones
           </Text>
           {currentScene?.startsWith('game') && (
-            <Button
-              type="secondary"
-              onClick={() => setCurrentScene('mainMenu')}
-            >
+            <Button type="text" onClick={() => setCurrentScene('mainMenu')}>
               Exit
             </Button>
           )}

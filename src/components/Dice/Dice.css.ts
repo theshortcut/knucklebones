@@ -1,7 +1,12 @@
 import { atoms } from '@/styles/atoms.css';
 import { mediaQueries, vars } from '@/styles/theme.css';
-import { style } from '@vanilla-extract/css';
+import { keyframes, style } from '@vanilla-extract/css';
 import { playerContainer } from '../Player/Player.css';
+
+const fadeIn = keyframes({
+  '0%': { opacity: 0 },
+  '100%': { opacity: 1 },
+});
 
 export const dice = style([
   atoms({
@@ -15,6 +20,7 @@ export const dice = style([
     "e g f"
     "d . b"
   `,
+    animation: `${fadeIn} 500ms`,
     aspectRatio: '1',
     borderRadius: '10%',
     flex: 1,

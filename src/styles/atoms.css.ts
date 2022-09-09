@@ -1,6 +1,20 @@
 import { defineProperties, createSprinkles } from '@vanilla-extract/sprinkles';
 import { vars, mediaQueries } from './theme.css';
 
+export const flexAlignValues = [
+  'flex-start',
+  'flex-end',
+  'center',
+  'stretch',
+] as const;
+export type FlexAlignValues = typeof flexAlignValues[number];
+export const flexDirectionValues = [
+  'row',
+  'row-reverse',
+  'column',
+  'column-reverse',
+] as const;
+
 const responsiveProperties = defineProperties({
   conditions: {
     sm: {},
@@ -11,9 +25,9 @@ const responsiveProperties = defineProperties({
   defaultCondition: 'sm',
   properties: {
     display: ['none', 'block', 'flex', 'grid'],
-    flexDirection: ['row', 'row-reverse', 'column', 'column-reverse'],
-    alignItems: ['flex-start', 'flex-end', 'center', 'stretch'],
-    justifyContent: ['flex-start', 'flex-end', 'center', 'stretch'],
+    flexDirection: flexDirectionValues,
+    alignItems: flexAlignValues,
+    justifyContent: flexAlignValues,
     gap: vars.space,
     columnGap: vars.space,
     rowGap: vars.space,

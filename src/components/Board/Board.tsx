@@ -1,4 +1,3 @@
-import { AnimatePresence } from 'framer-motion';
 import {
   Column as ColumnType,
   PlayerArea as PlayerAreaType,
@@ -57,16 +56,10 @@ const Column = ({
       }}
       {...props}
     >
-      <AnimatePresence>
-        <Text textAlign="center">{scoreColumn(data)}</Text>
-        {data.map((dice, diceIdx) =>
-          dice ? (
-            <Dice value={dice} key={diceIdx} />
-          ) : (
-            <EmptySlot key={diceIdx} />
-          )
-        )}
-      </AnimatePresence>
+      <Text textAlign="center">{scoreColumn(data)}</Text>
+      {data.map((dice, diceIdx) =>
+        dice ? <Dice value={dice} key={diceIdx} /> : <EmptySlot key={diceIdx} />
+      )}
     </button>
   );
 };

@@ -7,7 +7,9 @@ export const button = recipe({
   base: style([
     atoms({
       fontFamily: 'system',
-      padding: 'md',
+      letterSpacing: 'tight',
+      lineHeight: 'relaxed',
+      fontWeight: 'semibold',
       display: 'flex',
       placeItems: 'center',
     }),
@@ -32,16 +34,13 @@ export const button = recipe({
   ]),
   variants: {
     size: {
-      small: atoms({ fontSize: 'sm' }),
-      medium: atoms({ fontSize: 'md' }),
-      large: atoms({ fontSize: 'lg' }),
+      small: atoms({ fontSize: 'sm', padding: 'sm' }),
+      medium: atoms({ fontSize: 'md', padding: 'md' }),
+      large: atoms({ fontSize: 'lg', padding: 'lg' }),
     },
     type: {
       primary: style([
         atoms({
-          letterSpacing: 'tight',
-          lineHeight: 'relaxed',
-          fontWeight: 'semibold',
           color: {
             lightMode: 'buttonPrimaryForegroundLight',
             darkMode: 'buttonPrimaryForeground',
@@ -64,9 +63,37 @@ export const button = recipe({
           },
         },
       ]),
-      secondary: atoms({
+      secondary: style([
+        atoms({
+          letterSpacing: 'normal',
+          lineHeight: 'normal',
+          borderColor: {
+            lightMode: 'buttonPrimaryBackgroundLight',
+            darkMode: 'buttonPrimaryBackground',
+          },
+        }),
+        {
+          borderWidth: 1,
+          borderStyle: 'solid',
+          selectors: {
+            '&:active': {
+              borderColor: vars.color.buttonPrimaryBackgroundActive,
+              '@media': {
+                [mediaQueries.lightMode]: {
+                  background: vars.color.buttonPrimaryBackgroundLightActive,
+                },
+              },
+            },
+          },
+        },
+      ]),
+      text: atoms({
         letterSpacing: 'normal',
         lineHeight: 'normal',
+        color: {
+          lightMode: 'buttonPrimaryForegroundLight',
+          darkMode: 'buttonPrimaryForeground',
+        },
       }),
     },
   },

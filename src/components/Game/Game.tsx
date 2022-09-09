@@ -22,6 +22,7 @@ import {
 } from 'react';
 import { usePeerJs } from '@/utils/usePeerJs';
 import { TextInput } from '../TextInput';
+import { Flex } from '../Flex';
 
 type Props = {
   setCurrentScene: Dispatch<
@@ -79,21 +80,42 @@ export const Game = ({ setCurrentScene, gameType, userName }: Props) => {
       {isGameOver && (
         <OverlayContainer>
           <Dialog title={`${scores[0].playerId} Wins!`}>
-            <Text>{`${scores[0].score} - ${scores[1].score}`}</Text>
-            <Button onClick={() => dispatch({ type: 'newGame' })}>
-              Play Again
-            </Button>
-            <Button onClick={() => setCurrentScene('mainMenu')}>
-              Main Menu
-            </Button>
+            <Flex padding="md" flexDirection="column">
+              <Text>{`${scores[0].score} - ${scores[1].score}`}</Text>
+            </Flex>
+            <Flex gap="md" justifyContent="flex-end">
+              <Button
+                type="secondary"
+                size="small"
+                onClick={() => setCurrentScene('mainMenu')}
+              >
+                Main Menu
+              </Button>
+              <Button
+                size="small"
+                onClick={() => dispatch({ type: 'newGame' })}
+              >
+                Play Again
+              </Button>
+            </Flex>
           </Dialog>
         </OverlayContainer>
       )}
       {gameType === 'host' && connectionState === 'disconnected' && (
         <OverlayContainer>
           <Dialog title="Waiting for opponent">
-            <Text>{`Room: ${peerId}`}</Text>
-            <Button onClick={() => setCurrentScene('mainMenu')}>Cancel</Button>
+            <Flex padding="md" flexDirection="column">
+              <Text>{`Room: ${peerId}`}</Text>
+            </Flex>
+            <Flex gap="md" justifyContent="flex-end">
+              <Button
+                size="small"
+                type="secondary"
+                onClick={() => setCurrentScene('mainMenu')}
+              >
+                Cancel
+              </Button>
+            </Flex>
           </Dialog>
         </OverlayContainer>
       )}
@@ -103,12 +125,28 @@ export const Game = ({ setCurrentScene, gameType, userName }: Props) => {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                setRoomCode(roomCodeRef.current?.value);
+                setRoomCode(roomCodeRef.current?.value.toUpperCase());
               }}
             >
-              <Text as="label">Room code:</Text>
-              <TextInput ref={roomCodeRef} placeholder="ABCDEF" />
-              <Button onClick={() => setCurrentScene('game_join')}>Join</Button>
+              <Flex padding="md" flexDirection="column">
+                <Text as="label">Room code:</Text>
+                <TextInput ref={roomCodeRef} placeholder="ABCDEF" />
+              </Flex>
+              <Flex gap="md" justifyContent="flex-end">
+                <Button
+                  size="small"
+                  type="secondary"
+                  onClick={() => setCurrentScene('mainMenu')}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  size="small"
+                  onClick={() => setCurrentScene('game_join')}
+                >
+                  Join
+                </Button>
+              </Flex>
             </form>
           </Dialog>
         </OverlayContainer>
