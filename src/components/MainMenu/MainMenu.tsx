@@ -3,6 +3,7 @@ import { Button } from '@/components/Button';
 import { Text } from '@/components/Text';
 import { TextInput } from '@/components/TextInput';
 import { buttonContainer, formContainer, mainMenu } from './MainMenu.css';
+import { Flex } from '@/components/Flex';
 
 type Props = {
   setCurrentScene: Dispatch<
@@ -18,16 +19,34 @@ export const MainMenu = ({ setCurrentScene, userName, setUserName }: Props) => {
   return (
     <div className={mainMenu}>
       <div className={formContainer}>
-        <Text as="label">Username</Text>
-        <TextInput
-          value={userName}
-          onChange={(e) => {
-            setUserName(e.currentTarget.value);
-          }}
-          onBlur={(e) => {
-            if (!e.currentTarget.value) setUserName('Player 1');
-          }}
-        />
+        <Flex flexDirection="column" gap="lg">
+          <div>
+            <Text as="label">Username</Text>
+            <TextInput
+              value={userName}
+              onChange={(e) => {
+                setUserName(e.currentTarget.value);
+              }}
+              onBlur={(e) => {
+                if (!e.currentTarget.value) setUserName('Player 1');
+              }}
+            />
+          </div>
+          <div>
+            <Text as="h2" size="medium" type="heading">
+              Rules
+            </Text>
+            <Text as="p">
+              Players alternate placing dice in their 3x3 board. Placing a
+              matching die in your own column multiplies the dice value.
+            </Text>
+            <Text as="p">
+              Any matching dice in your opponents column are removed from their
+              board.
+            </Text>
+            <Text as="p">The game ends when a player fills their board.</Text>
+          </div>
+        </Flex>
       </div>
       <div className={buttonContainer}>
         <Button onClick={() => setCurrentScene('game_ai')}>

@@ -5,6 +5,8 @@ export const mainMenu = style([
   atoms({
     display: 'flex',
     flexDirection: 'row',
+    gap: 'lg',
+    padding: 'md',
   }),
   {
     flex: 1,

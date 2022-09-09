@@ -21,8 +21,8 @@ import {
   useState,
 } from 'react';
 import { usePeerJs } from '@/utils/usePeerJs';
-import { TextInput } from '../TextInput';
-import { Flex } from '../Flex';
+import { TextInput } from '@/components/TextInput';
+import { Flex } from '@/components/Flex';
 
 type Props = {
   setCurrentScene: Dispatch<
