@@ -21,9 +21,12 @@ export const MainMenu = ({ setCurrentScene, userName, setUserName }: Props) => {
       <div className={formContainer}>
         <Flex flexDirection="column" gap="lg">
           <Flex flexDirection="column">
-            <Text as="label">Username</Text>
+            <Text as="label" htmlFor="username">
+              Username
+            </Text>
             <TextInput
               value={userName}
+              id="username"
               onChange={(e) => {
                 setUserName(e.currentTarget.value);
               }}
