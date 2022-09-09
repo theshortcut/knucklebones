@@ -20,7 +20,7 @@ export const MainMenu = ({ setCurrentScene, userName, setUserName }: Props) => {
     <div className={mainMenu}>
       <div className={formContainer}>
         <Flex flexDirection="column" gap="lg">
-          <div>
+          <Flex flexDirection="column">
             <Text as="label">Username</Text>
             <TextInput
               value={userName}
@@ -31,7 +31,7 @@ export const MainMenu = ({ setCurrentScene, userName, setUserName }: Props) => {
                 if (!e.currentTarget.value) setUserName('Player 1');
               }}
             />
-          </div>
+          </Flex>
           <div>
             <Text as="h2" size="medium" type="heading">
               Rules

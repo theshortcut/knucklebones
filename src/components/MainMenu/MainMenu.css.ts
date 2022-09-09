@@ -15,11 +15,14 @@ export const mainMenu = style([
   },
 ]);
 
-export const formContainer = atoms({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 'sm',
-});
+export const formContainer = style([
+  atoms({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 'sm',
+  }),
+  { maxWidth: '20rem' },
+]);
 
 export const buttonContainer = atoms({
   display: 'flex',
