@@ -11,10 +11,11 @@ const fadeIn = keyframes({
 export const dice = style([
   atoms({
     display: 'grid',
-    background: { lightMode: 'background', darkMode: 'bodyText' },
+    background: 'bodyText',
     margin: { sm: 'xs', lg: 'lg' },
   }),
   {
+    boxShadow: `inset -2px -2px 4px 1px ${vars.color.diceShadow}`,
     gridTemplateAreas: `
     "a . c"
     "e g f"
@@ -41,15 +42,12 @@ export const dice = style([
 
 export const pip = style([
   atoms({
-    background: {
-      lightMode: 'bodyText',
-      darkMode: 'background',
-    },
+    background: 'background',
   }),
   {
     borderRadius: '50%',
-    width: '75%',
-    height: '75%',
+    width: '60%',
+    height: '60%',
     justifySelf: 'flex-end',
     alignSelf: 'flex-end',
 
@@ -95,7 +93,7 @@ export const emptySlot = style([
   }),
   {
     borderRadius: '10%',
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderStyle: 'solid',
     flex: 1,
     aspectRatio: '1',
