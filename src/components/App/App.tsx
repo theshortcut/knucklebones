@@ -1,12 +1,13 @@
 import { OverlayProvider } from 'react-aria';
 import { app, main, navContainer, navTitle, overlayContainer } from './App.css';
+import { Button } from '@/components/Button';
 import { Text } from '@/components/Text';
-import { GameStateProvider } from '@/components/GameStateContext';
 import { Game } from '@/components/Game';
+import { GameStateProvider } from '@/components/GameStateContext';
+import { MainMenu } from '@/components/MainMenu';
+import { ReloadPrompt } from '@/components/ReloadPrompt';
 import { useLocalStorage } from '@/utils/useLocalStorage';
-import { MainMenu } from '../MainMenu';
 import { PeerType, setup } from '@/game';
-import { Button } from '../Button';
 import { useMemo } from 'react';
 
 const sceneNames = ['mainMenu', 'game_ai', 'game_host', 'game_join'] as const;
@@ -74,6 +75,7 @@ export const App = () => {
           )}
         </main>
       </div>
+      <ReloadPrompt />
     </OverlayProvider>
   );
 };
