@@ -17,9 +17,9 @@ export default defineConfig({
       manifest: {
         name: 'Knucklebones',
         short_name: 'Knucklebones',
+        display: 'standalone',
         description:
           'Online version of Knucklebones based on the minigame from Cult of the Lamb',
-        theme_color: '#ffffff',
         icons: [
           {
             src: 'pwa-192x192.png',
