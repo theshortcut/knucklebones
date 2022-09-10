@@ -93,7 +93,7 @@ export const emptySlot = style([
   }),
   {
     borderRadius: '10%',
-    borderWidth: 0.5,
+    borderWidth: 1,
     borderStyle: 'solid',
     flex: 1,
     aspectRatio: '1',
